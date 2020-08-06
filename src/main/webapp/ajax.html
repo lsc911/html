@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+<body>
+  <button onclick="test()">点击</button>
+  <button onclick="test1()">点击1</button>
+  <button onclick="test2()">点击2</button>
+  <button onclick="test3()">点击3</button>
+</body>
+<script>
+
+
+   $.ajaxSetup({
+       //data:{"name":sessionStorage.getItem("token")}
+       headers: {
+           'name': 'hello'
+       }
+    });
+
+
+
+    function test() {
+        $.post({
+            url:"http://localhost:8080/LoginController/test",
+            dataType:"json",
+           // data:{"name":"hello"},
+            data:{"age":123},
+            success:function (rs) {
+                alert(rs);
+            },error:function () {
+                alert("请求异常");
+            }
+        });
+    }
+    function test1() {
+        $.post({
+            url:"http://localhost:8080/LoginController/test",
+            dataType:"json",
+            //data:{"name":"hello"},
+            success:function (rs) {
+                alert(rs);
+            },error:function () {
+                alert("请求异常");
+            }
+        });
+    }
+    function test2() {
+        $.post({
+            url:"http://localhost:8080/LoginController/test",
+            dataType:"json",
+           // data:{"name":"hello"},
+            success:function (rs) {
+                alert(rs);
+            },error:function () {
+                alert("请求异常");
+            }
+        });
+    }
+    function test3() {
+        $.post({
+            url:"http://localhost:8080/LoginController/test",
+            dataType:"json",
+            //data:{"name":"hello"},
+            success:function (rs) {
+                alert(rs);
+            },error:function () {
+                alert("请求异常");
+            }
+        });
+    }
+
+</script>
+</html>

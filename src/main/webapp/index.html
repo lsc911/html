@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="./res/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="./res/layui/css/layui.css">
+  <script type="text/javascript" src="./res/layui/layui.js"></script>
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+<body id="list-cont">
+
+
+  <div class="site-nav-bg">
+    <div class="site-nav w1200">
+      <p class="sn-back-home">
+        <i class="layui-icon layui-icon-home"></i>
+        <a href="#">首页</a>
+      </p>
+      <div class="sn-quick-menu">
+        <div class="login"><a href="login.html">登录</a></div>
+        <div class="sp-cart"><a href="shopcart.html">购物车</a><span></span></div>
+        <div class="sp-cart"><a href="dingDan.html">我的订单</a></div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="header">
+    <div class="headerLayout w1200">
+      <div class="headerCon">
+        <h1 class="mallLogo">
+          <a href="#" title="母婴商城">
+            <img src="./res/static/img/logo.png">
+          </a>
+        </h1>
+        <div class="mallSearch">
+          <form action="" class="layui-form" novalidate>
+            <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+            <input type="hidden" name="" value="">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="content">
+    <div class="main-nav">
+      <div class="inner-cont0">
+        <div class="inner-cont1 w1200">
+          <div class="inner-cont2">
+            <a href="commodity.html" class="active">所有商品</a>
+            <a href="buytoday.html">今日团购</a>
+            <a href="information.html">母婴资讯</a>
+            <a href="about.html">关于我们</a>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="category-con">
+      <div class="category-inner-con w1200">
+        <div class="category-type">
+          <h3>全部分类</h3>
+        </div>
+        <div class="category-tab-content">
+          <div class="nav-con">
+            <ul id="typeDiv" class="normal-nav layui-clear">
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+      <div class="category-banner">
+        <div class="w1200">
+          <img src="./res/static/img/banner1.jpg">
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+    <!--<div class="hot-recommend-con">
+      <div class="hot-con1 w1200 layui-clear">
+        <div class="item">
+          <h4>热销推荐</h4>
+          <div class="big-img">
+            <a href="javascript:;"><img src="../res/static/img/hot1.png"></a>
+          </div>
+          <div class="small-img">
+            <a href="javascript:;"><img src="../res/static/img/hot2.png" alt=""></a>
+          </div>
+        </div>
+
+      </div>
+    </div>-->
+    <div class="product-list-box" id="product-list-box">
+      <div class="product-list-cont w1200">
+        <h4>热销推荐</h4>
+        <div id="hotGoodsDiv" class="product-item-box layui-clear">
+
+          <!-- <div class="list-item">
+             <a href="javascript:;"><img src="../res/static/img/more1.jpg"></a>
+             <p>时尚宝宝小黄鸭T恤纯棉耐脏多色可选0-2岁宝宝</p>
+             <span>￥100.00</span>
+           </div>-->
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+  <div class="footer">
+    <div class="ng-promise-box">
+      <div class="ng-promise w1200">
+        <p class="text">
+          <a class="icon1" href="javascript:;">7天无理由退换货</a>
+          <a class="icon2" href="javascript:;">满99元全场免邮</a>
+          <a class="icon3" style="margin-right: 0" href="javascript:;">100%品质保证</a>
+        </p>
+      </div>
+    </div>
+    <div class="mod_help w1200">                                     
+      <p>
+        <a href="javascript:;">关于我们</a>
+        <span>|</span>
+        <a href="javascript:;">帮助中心</a>
+        <span>|</span>
+        <a href="javascript:;">售后服务</a>
+        <span>|</span>
+        <a href="javascript:;">母婴资讯</a>
+        <span>|</span>
+        <a href="javascript:;">关于货源</a>
+      </p>
+      <p class="coty">母婴商城版权所有 &copy; 2012-2020</p>
+    </div>
+  </div>
+
+
+  <script type="text/javascript">
+
+layui.config({
+    base: './res/static/js/util/' //你存放新模块的目录，注意，不是layui的模块目录
+  }).use(['mm','carousel'],function(){
+      var carousel = layui.carousel,
+     mm = layui.mm;
+     var option = {
+        elem: '#test1'
+        ,width: '100%' //设置容器宽度
+        ,arrow: 'always'
+        ,height:'298' 
+        ,indicator:'none'
+      }
+      carousel.render(option);
+      // 模版引擎导入
+     // var ins = carousel.render(option);
+     // var html = demo.innerHTML;
+     // var listCont = document.getElementById('list-cont');
+     // // console.log(layui.router("#/about.html"))
+     //  mm.request({
+     //    url: './json/index.json',
+     //    success : function(res){
+     //      console.log(res)
+     //      listCont.innerHTML = mm.renderHtml(html,res)
+     //      ins.reload(option);
+     //    },
+     //    error: function(res){
+     //      console.log(res);
+     //    }
+     //  })
+
+});
+
+
+</script>
+<script>
+  $(function () {
+    //初始化分类
+    initType();
+    //初始化商品
+    initGoodsIsHot();
+  })
+
+
+  function initType() {
+    $.post({
+      url:"http://localhost:8083/TypeController/queryType",
+      dataType:"json",
+      success:function (data) {
+        //将字符串转为json数组
+        var typeArr=eval(data.data);
+        var typeHtml="";
+
+        for (var i = 0; i <typeArr.length ; i++) {
+
+            if(typeArr[i].pid==1){
+                typeHtml+="<li class=\"nav-item\">";
+                typeHtml+="<div class=\"title\">"+typeArr[i].typeName+"</div>";
+                typeHtml+="<p>";
+              for (var j = 0; j <typeArr.length ; j++) {
+                if(typeArr[i].typeId==typeArr[j].pid){
+                  typeHtml+="<a href=\"/commodity.html?typeId="+typeArr[j].typeId+"\">"+typeArr[j].typeName+"</a>";
+                }
+              }
+
+              typeHtml+="</p>";
+              typeHtml+=" <i class=\"layui-icon layui-icon-right\"></i>";
+            }
+
+        }
+
+        $("#typeDiv").html(typeHtml);
+
+      },
+      error:function () {
+        alert("数据加载异常");
+      }
+    })
+  }
+
+
+
+
+function initGoodsIsHot() {
+  $.post({
+      url:"http://localhost:8083/GoodsController/queryHotGoods",
+      dataType:"json",
+      success:function (data) {
+        var goodsArr=eval(data.data);
+        var goodsHtml = "";
+        for (var i = 0; i <goodsArr.length ; i++) {
+          var goods = goodsArr[i];
+          goodsHtml+="<div class=\"list-item\">\n" +
+                  "             <a href=\"./details.html?id="+goods.id+"\"><img width='160px' height='160px' src=\""+goods.imgpath+"\"></a>\n" +
+                  "             <p>"+goods.name+"</p>\n" +
+                  "             <span>￥"+goods.price+"</span>\n" +
+                  "           </div>";
+        }
+
+        $("#hotGoodsDiv").html(goodsHtml);
+
+    },error:function () {
+      alert("数据异常");
+    }
+
+  });
+}
+
+
+
+</script>
+</body>
+
+
+
+</li>
+
+
+</html>

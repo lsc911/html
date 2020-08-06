@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="./res/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="./res/layui/css/layui.css">
+  <script type="text/javascript" src="./res/layui/layui.js"></script>
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+<body>
+
+<div class="site-nav-bg">
+  <div class="site-nav w1200">
+    <p class="sn-back-home">
+      <i class="layui-icon layui-icon-home"></i>
+      <a href="./index.html">首页</a>
+    </p>
+    <div class="sn-quick-menu">
+
+      <div class="login"><a href="login.html">登录</a></div>
+      <div class="sp-cart"><a href="shopcart.html">购物车</a><span></span></div>
+      <div class="sp-cart"><a href="dingDan.html">我的订单</a></div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="header">
+  <div class="headerLayout w1200">
+    <div class="headerCon">
+      <h1 class="mallLogo">
+        <a href="#" title="母婴商城">
+          <img src="../res/static/img/logo.png">
+        </a>
+      </h1>
+      <div class="mallSearch">
+        <form action="" class="layui-form" novalidate>
+          <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
+          <button class="layui-btn" lay-submit lay-filter="formDemo">
+            <i class="layui-icon layui-icon-search"></i>
+          </button>
+          <input type="hidden" name="" value="">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="commod-cont-wrap">
+  <div class="commod-cont w1200 layui-clear">
+    <div class="right-cont-wrap">
+      <div class="right-cont">
+        <div class="prod-number">
+          <span>200个</span>
+        </div>
+
+
+        <div class="cont-list layui-clear" id="list-cont">
+
+          <table border="2"  cellspacing="0" width="400px" id="OrderDiv">
+
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+<script>
+
+
+  // 进行ajax的全局设置
+  $.ajaxSetup({
+
+    headers: {
+      'token': sessionStorage.getItem("login_token")
+    },
+    //数据加载完成后
+    complete:function(a,b,c){
+      var rs=a.responseJSON;
+
+      if(rs.code==1000){
+        alert(rs.message);
+        location.href="login.html"
+      }
+    }
+
+  });
+
+
+
+   $(function () {
+     initDingDan();
+
+   });
+
+
+
+
+/*function initDingDan() {
+
+$.post({
+  url:"http://localhost:8083/OrderController/queryMyOrder",
+  dataType:"json",
+  data:{},
+  success:function (rs) {
+      alert(JSON.stringify(rs));
+      if(rs.code==200){
+
+        var orderData = rs.data;
+        var htmls="";
+        for (var i = 0; i <orderData.length ; i++) {
+          //拿到具体的一个
+          var cg=orderData[i];
+          htmls+=' <tr>\n' +
+                  '          <td>'+cg.proTypeCount+'</td>\n' +
+                  '          <td>支付状态：'+cg.payStatus+'==0?"未支付":"支付成功"</td>\n' +
+                  '          <td>日期：'+cg.createDate+'</td>\n' +
+                  '          <td>小计：'+cg.totalMoney+'</td>\n' +
+                  '      </tr>';
+        }
+        $("#OrderDiv").html(htmls);
+      }
+  },error:function () {
+     alert("订单查询失败");
+  }
+
+});
+
+}*/
+
+
+
+  var orderData;
+  function initDingDan() {
+    $.post({
+      url:"http://localhost:8083/OrderController/queryMyOrder",
+      dataType:"json",
+      success:function (rs) {
+        alert(JSON.stringify(rs));
+        if(rs.code==200){
+          //拿到商品信息
+          orderData=rs.data;
+          //拼好显示的html
+          var orderHtml = "<tr>\n" +
+                  "            <td>会员用户订单</td>\n" +
+                  "            <td>订单地址</td>\n" +
+                  "            <td>支付类型</td>\n" +
+                  "            <td>总金额</td>\n" +
+                  "            <td>支付状态</td>\n" +
+                  "        </tr>";
+          for (var i = 0; i <orderData.length ; i++) {
+            //拿到具体的一个
+            var cg=orderData[i];
+
+            var payTypeHtml = "";
+            if(cg.payType == 0){
+              payTypeHtml = '<td>在线支付</td>';
+            }else{
+              payTypeHtml = '<td>货到付款</td>';
+            }
+            var payStatusHtml = "";
+            if(cg.payStatus == 2){
+              payStatusHtml='<td>支付成功</td>';
+            }else{
+              payStatusHtml='<td>支付失败<button type="button" onclick="toWexin('+cg.id+')">支付</button></td>';
+            }
+            orderHtml+= '<tr> <td>'+cg.vipId+'</td>\n' +
+                    '          <td>'+cg.addressId+'</td>\n' +
+                    payTypeHtml +
+                    '          <td>'+cg.totalMoney+'</td>\n' +
+                    payStatusHtml +
+                    '        </tr>';
+          }
+          $("#OrderDiv").html(orderHtml);
+        }
+      },
+      error:function () {
+        alert("查询我的订单异常");
+      }
+    })
+
+  }
+
+
+  function toWexin(id) {
+    for (var i = 0; i < orderData.length; i++) {
+
+      if(orderData[i].id == id){
+        //alert(orderData[i].totalMoney)
+        sessionStorage.setItem("orderId",id);
+        sessionStorage.setItem("money",orderData[i].totalMoney);
+        location.href="weixin.html";
+
+      }
+    }
+
+  }
+
+
+
+
+
+
+</script>
+</html>
